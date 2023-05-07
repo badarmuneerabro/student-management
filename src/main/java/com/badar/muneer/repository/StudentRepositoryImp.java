@@ -45,6 +45,12 @@ public class StudentRepositoryImp implements StudentRespository
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Student.class, id);
 	}
+	public void saveStudent(Student student) 
+	{
+		Session session = sessionFactory.getCurrentSession();
+		
+		session.save(student);
+	}
 
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
@@ -53,5 +59,7 @@ public class StudentRepositoryImp implements StudentRespository
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
+
+	
 
 }

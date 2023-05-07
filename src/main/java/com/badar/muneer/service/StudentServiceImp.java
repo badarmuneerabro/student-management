@@ -3,7 +3,7 @@ package com.badar.muneer.service;
 import java.util.Collections;
 import java.util.List;
 
-
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +31,12 @@ public class StudentServiceImp implements StudentService
 	{
 		return repository.getStudent(id);
 	}
+	
+	@Transactional
+	public void saveStudent(Student student) 
+	{
+		repository.saveStudent(student);
+	}
 
 	public StudentRespository getRespository() {
 		return repository;
@@ -40,5 +46,7 @@ public class StudentServiceImp implements StudentService
 		System.out.println("Repository created...");
 		this.repository = repository;
 	}
+
+	
 
 }

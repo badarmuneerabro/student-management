@@ -2,12 +2,14 @@ package com.badar.muneer.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotBlank;
 
 @Embeddable
 public class PhoneNo 
 {
 	
 	private String countryCode;
+	@NotBlank(message = "* Phone number is required")
 	private String phoneNumber;
 	
 	@Column(name = "COUNTRY_CODE", length = 10)
@@ -27,7 +29,7 @@ public class PhoneNo
 	}
 	@Override
 	public String toString() {
-		return getCountryCode() + "" + getPhoneNumber();
+		return getCountryCode() + "-" + getPhoneNumber();
 	}
 
 }

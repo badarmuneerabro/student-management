@@ -9,4 +9,5 @@ public interface StudentRespository
 
 	List<Student> getAll();
 	Student getStudent(long id);
+	void saveStudent(Student student);
 }
