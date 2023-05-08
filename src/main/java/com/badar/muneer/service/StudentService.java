@@ -12,4 +12,6 @@ public interface StudentService
 	Student getStudent(long id);
 	
 	void saveStudent(Student student);
+
+	Student update(Student student);
 }

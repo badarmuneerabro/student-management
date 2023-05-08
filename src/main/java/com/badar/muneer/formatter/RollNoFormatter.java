@@ -23,10 +23,23 @@ public class RollNoFormatter implements Formatter<RollNo>
 	public RollNo parse(String text, Locale locale) throws ParseException 
 	{
 		RollNo rollNo = new RollNo();
+		int batch = 0;
+		String dept = null;
+		int number = 0;
 		
-		int batch = Integer.parseInt(text.substring(0, 2));
-		String dept = text.substring(2, 4);
-		int number = Integer.parseInt(text.substring(4, text.length()));
+		if(text.length() == 6)
+		{
+			batch = Integer.parseInt(text.substring(0, 2));
+			dept = text.substring(2, 4);
+			number = Integer.parseInt(text.substring(4, text.length()));
+		}
+		
+		else if(text.length() == 7)
+		{
+			batch = Integer.parseInt(text.substring(0, 2));
+			dept = text.substring(2, 5);
+			number = Integer.parseInt(text.substring(5, text.length()));
+		}
 		
 		rollNo.setBatch(batch);
 		rollNo.setDept(dept);

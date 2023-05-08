@@ -16,7 +16,9 @@
 	
 	<div align="center">
 	<h2>Add Student</h2>
-	<form:form modelAttribute="student">
+	<form:form action="/student-management/students/update-student" modelAttribute="student">
+		
+		<form:hidden path="id"/>
 		<form:label path="firstName">First Name: </form:label>
 		<form:input path="firstName"/>
 		<br>

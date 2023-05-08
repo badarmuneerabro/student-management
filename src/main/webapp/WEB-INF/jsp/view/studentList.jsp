@@ -15,7 +15,8 @@
 	<h1 align="center">Student Management</h1>
 	
 	<div align="center">
-		
+	
+	<a href="<c:url value="add-student" />"> <button>Add</button> </a>
 	<table border="2">
 		
 		<thead>
@@ -41,6 +42,9 @@
 					<td>${student.country }</td>
 					<td>${student.phone }</td>
 					<td>${student.rollNo }</td>
+					
+					<td><a href="<c:url value="update-student/${student.id }" />">Update</a> | 
+					<a href="<c:url value="delete-student" />">Delete</a></td>
 				</tr>
 			
 			</c:forEach>

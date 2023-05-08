@@ -32,10 +32,18 @@ public class StudentServiceImp implements StudentService
 		return repository.getStudent(id);
 	}
 	
+	
+	
 	@Transactional
 	public void saveStudent(Student student) 
 	{
 		repository.saveStudent(student);
+	}
+	
+	@Transactional
+	public Student update(Student student) 
+	{
+		return repository.update(student);
 	}
 
 	public StudentRespository getRespository() {
@@ -46,6 +54,8 @@ public class StudentServiceImp implements StudentService
 		System.out.println("Repository created...");
 		this.repository = repository;
 	}
+
+	
 
 	
 

@@ -52,6 +52,22 @@ public class StudentRepositoryImp implements StudentRespository
 		session.save(student);
 	}
 
+	public Student update(Student student) 
+	{
+		Session session = sessionFactory.getCurrentSession();
+		Student oldStudent = session.get(Student.class, student.getId());
+		oldStudent.setCountry(student.getCountry());
+		oldStudent.setFirsName(student.getFirsName());
+		oldStudent.setLastName(student.getLastName());
+		oldStudent.setPhone(student.getPhone());
+		oldStudent.setRollNo(student.getRollNo());
+		
+		session.update(oldStudent);
+		
+		return oldStudent; 
+	}
+	
+	
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
