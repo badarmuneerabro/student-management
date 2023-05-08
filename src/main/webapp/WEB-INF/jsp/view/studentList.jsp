@@ -44,7 +44,7 @@
 					<td>${student.rollNo }</td>
 					
 					<td><a href="<c:url value="update-student/${student.id }" />">Update</a> | 
-					<a href="<c:url value="delete-student" />">Delete</a></td>
+					<a href="<c:url value="delete-student/${student.id }" />">Delete</a></td>
 				</tr>
 			
 			</c:forEach>

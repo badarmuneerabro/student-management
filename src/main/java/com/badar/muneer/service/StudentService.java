@@ -14,4 +14,6 @@ public interface StudentService
 	void saveStudent(Student student);
 
 	Student update(Student student);
+
+	void delete(Student student);
 }

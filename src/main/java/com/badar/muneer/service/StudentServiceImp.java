@@ -46,6 +46,11 @@ public class StudentServiceImp implements StudentService
 		return repository.update(student);
 	}
 
+	@Transactional
+	public void delete(Student student) 
+	{
+		repository.delete(student);
+	}
 	public StudentRespository getRespository() {
 		return repository;
 	}

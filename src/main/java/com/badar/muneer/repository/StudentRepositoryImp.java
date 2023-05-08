@@ -68,6 +68,11 @@ public class StudentRepositoryImp implements StudentRespository
 	}
 	
 	
+	public void delete(Student student) 
+	{
+		Session session = sessionFactory.getCurrentSession();
+		session.delete(student);
+	}
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}

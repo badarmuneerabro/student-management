@@ -96,6 +96,16 @@ public class StudentController
 		return new ModelAndView(new RedirectView("/students/", true));
 	}
 	
+	@GetMapping("/delete-student/{id}")
+	public ModelAndView deleteStudent(@PathVariable long id)
+	{
+		
+		Student student = studentService.getStudent(id);
+		
+		studentService.delete(student);
+		
+		return new ModelAndView(new RedirectView("/students/", true));
+	}
 	public StudentService getStudentService() {
 		return studentService;
 	}

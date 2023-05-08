@@ -11,4 +11,5 @@ public interface StudentRespository
 	Student getStudent(long id);
 	void saveStudent(Student student);
 	Student update(Student student);
+	void delete(Student student);
 }
