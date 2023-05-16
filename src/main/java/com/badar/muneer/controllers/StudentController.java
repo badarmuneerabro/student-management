@@ -2,6 +2,8 @@ package com.badar.muneer.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.badar.muneer.dto.StudentForm;
 import com.badar.muneer.model.Student;
+import com.badar.muneer.service.CourseService;
 import com.badar.muneer.service.StudentService;
 
 @Controller
@@ -27,14 +30,28 @@ public class StudentController
 	@Autowired
 	private StudentService studentService;
 	
+	@Autowired
+	private CourseService courseService;
+	
+	@GetMapping("/home")
+	public ModelAndView studentHome(HttpServletRequest request)
+	{
+		HttpSession session = request.getSession();
+		if(session.getAttribute("student") == null)
+		{
+			return new ModelAndView(new RedirectView("/login", true));
+		}
+		
+		return new ModelAndView("studentHome");
+	}
+	
 	@GetMapping("/")
-	public String allStudents(Model model)
+	public String allStudents(Model model, HttpSession session)
 	{
 		List<Student> list = studentService.getAll();
 		model.addAttribute("students", list);
 		return "studentList";
 	}
-
 	
 	@GetMapping("/add-student")
 	public String addStudentPage(Model model)
@@ -43,6 +60,7 @@ public class StudentController
 		return "addStudent";
 	}
 	
+	
 	@GetMapping("/update-student/{id}")
 	public String updateStudentPage(@PathVariable long id, Model model)
 	{
@@ -50,7 +68,7 @@ public class StudentController
 		StudentForm student = new StudentForm();
 		
 		student.setCountry(s.getCountry());
-		student.setFirstName(s.getFirsName());
+		student.setFirstName(s.getFirstName());
 		student.setLastName(s.getLastName());
 		student.setId(s.getId());
 		student.setPhone(s.getPhone());
@@ -58,7 +76,7 @@ public class StudentController
 		
 		model.addAttribute("student", student);
 		
-		return "addStudent";
+		return "updateStudent";
 	}
 	
 	@PostMapping("/update-student")
@@ -67,7 +85,7 @@ public class StudentController
 		Student student = new Student();
 		
 		student.setCountry(studentForm.getCountry());
-		student.setFirsName(studentForm.getFirstName());
+		student.setFirstName(studentForm.getFirstName());
 		student.setLastName(studentForm.getLastName());
 		student.setPhone(studentForm.getPhone());
 		student.setRollNo(studentForm.getRollNo());
@@ -85,14 +103,24 @@ public class StudentController
 			return new ModelAndView("addStudent");
 		}
 		
+		
 		Student st = new Student();
 		st.setCountry(student.getCountry());
-		st.setFirsName(student.getFirstName());
+		st.setFirstName(student.getFirstName());
 		st.setLastName(student.getLastName());
 		st.setPhone(student.getPhone());
 		st.setRollNo(student.getRollNo());
-		studentService.saveStudent(st);
 		
+		if(student.getId() == null)
+		{
+			studentService.saveStudent(st);
+		}
+		
+		else
+		{
+			st.setId(student.getId());
+			studentService.update(st);
+		}
 		return new ModelAndView(new RedirectView("/students/", true));
 	}
 	
@@ -106,11 +134,23 @@ public class StudentController
 		
 		return new ModelAndView(new RedirectView("/students/", true));
 	}
+	
+	
 	public StudentService getStudentService() {
 		return studentService;
 	}
 
 	public void setStudentService(StudentService studentService) {
 		this.studentService = studentService;
+	}
+
+
+	public CourseService getCourseService() {
+		return courseService;
+	}
+
+
+	public void setCourseService(CourseService courseService) {
+		this.courseService = courseService;
 	}
 }

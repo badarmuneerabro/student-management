@@ -1,8 +1,12 @@
 package com.badar.muneer.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
+import com.badar.muneer.model.Course;
 import com.badar.muneer.model.PhoneNo;
 import com.badar.muneer.model.RollNo;
 
@@ -25,6 +29,8 @@ public class StudentForm
 	
 	
 	private RollNo rollNo;
+	
+	private Set<Course> courses = new HashSet<>();
 	
 	
 	public Long getId() {
@@ -62,6 +68,12 @@ public class StudentForm
 	}
 	public void setRollNo(RollNo rollNo) {
 		this.rollNo = rollNo;
+	}
+	public Set<Course> getCourses() {
+		return courses;
+	}
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
 	}
 	
 	

@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <title>Student Management | All Students</title>
 
+<link type="text/css" rel="stylesheet" href="/student-management/resources/css/main.css">
+
 <style type="text/css">
 
 	table{
@@ -12,12 +14,12 @@
 </style>
 </head>
 <body>
-	<h1 align="center">Student Management</h1>
+	<%@ include file="/WEB-INF/jsp/nav.jspf" %>
+	<h1 align="center" class="display-1">Student Management</h1>
 	
-	<div align="center">
-	
-	<a href="<c:url value="add-student" />"> <button>Add</button> </a>
-	<table border="2">
+	<div class="container" >
+	<button class="btn btn-outline-primary btn-md px-4 py-2"><a href="<c:url value="add-student" />" class="text-black">Add</a>  </button>
+	<table class="table table-stripped table-hover text-center mt-2">
 		
 		<thead>
 			<tr>
@@ -27,11 +29,12 @@
 				<th>Country</th>
 				<th>Phone</th>
 				<th>Roll No</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 		
 		
-		<tbody>
+		<tbody style="font-size: 1.7rem;">
 			
 			<c:forEach var="student" items="${students }">
 				
@@ -52,8 +55,8 @@
 		</tbody>
 		
 		<tfoot>
-			<tr>
-				<th colspan="5">Total</th>
+			<tr class="table-info">
+				<th colspan="6">Total</th>
 				<td>${students.size() }</td>
 			</tr>
 		</tfoot>

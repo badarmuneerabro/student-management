@@ -2,8 +2,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Student Management | Add Student</title>
-<link type="text/css" rel="stylesheet" href="/student-management/resources/css/main.css">
+<title>Student Management | Update Student</title>
+
+<link rel="stylesheet" type="text/css" href="/student-management/resources/main.css">
 <style type="text/css">
 
 	.error{
@@ -15,10 +16,9 @@
 <body>
 	
 	<%@ include file="/WEB-INF/jsp/nav.jspf" %>
-	
 	<div align="center" class="container mt-4">
-	<h2 class="display-2">Add Student</h2>
-	<form:form action="/student-management/students/add-student" modelAttribute="student" cssClass="w-50 p-4">
+	<h2 class="display-2">Update Student</h2>
+	<form:form action="/student-management/students/update-student" modelAttribute="student" cssClass="w-50 p-4">
 		
 		<form:hidden path="id"/>
 		
@@ -49,7 +49,7 @@
 			<form:input  path="rollNo" cssClass="form-control" />
 			<form:errors cssClass="error" path="rollNo" />
 		</div>
-		<i class="bi bi-plus-circle-fill"></i><input class="btn btn-outline-primary px-4 py-2" type="submit" value="Add" name="Add">
+		<i class="bi bi-plus-circle-fill"></i><input class="btn btn-outline-primary px-4 py-2" type="submit" value="Update" name="Update">
 	</form:form>
 	</div> 
 </body>

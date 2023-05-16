@@ -2,6 +2,7 @@ package com.badar.muneer.repository;
 
 import java.util.List;
 
+import com.badar.muneer.model.RollNo;
 import com.badar.muneer.model.Student;
 
 public interface StudentRespository 
@@ -12,4 +13,6 @@ public interface StudentRespository
 	void saveStudent(Student student);
 	Student update(Student student);
 	void delete(Student student);
+	
+	Student getStudentWithEmailAndPassword(String email, String password);
 }

@@ -2,6 +2,7 @@ package com.badar.muneer.service;
 
 import java.util.List;
 
+import com.badar.muneer.model.RollNo;
 import com.badar.muneer.model.Student;
 
 public interface StudentService 
@@ -16,4 +17,6 @@ public interface StudentService
 	Student update(Student student);
 
 	void delete(Student student);
+	
+	Student getStudentWithEmailAndPassword(String email, String password);
 }

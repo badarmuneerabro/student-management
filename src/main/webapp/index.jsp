@@ -1,1 +1,1 @@
-<c:redirect url="/students" />
+<c:redirect url="/login/" />

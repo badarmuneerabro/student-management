@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.badar.muneer.comparator.StudentComparator;
+import com.badar.muneer.model.RollNo;
 import com.badar.muneer.model.Student;
 import com.badar.muneer.repository.StudentRespository;
 
@@ -50,6 +51,13 @@ public class StudentServiceImp implements StudentService
 	public void delete(Student student) 
 	{
 		repository.delete(student);
+	}
+	
+	@Override
+	@Transactional
+	public Student getStudentWithEmailAndPassword(String email, String password) 
+	{
+		return repository.getStudentWithEmailAndPassword(email, password);
 	}
 	public StudentRespository getRespository() {
 		return repository;
