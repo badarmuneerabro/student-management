@@ -1,0 +1,18 @@
+<nav class="navbar navbar-expand-lg bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand text-white font-italic display-4"
+			href="<c:url value="/students/" />"></a>
+			<h1 class="text-white">Student <br> <span class="ms-3">Management</span> </h1>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse ms-3" id="navbarNav">
+      <ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link active text-white"
+					aria-current="page" href="#">Home</a></li>
+				<li class="nav-item"><a class="nav-link active text-white"
+					aria-current="page" href="<c:url value="/logout" />">Logout</a></li>
+			</ul>
+    </div>
+  </div>
+</nav>

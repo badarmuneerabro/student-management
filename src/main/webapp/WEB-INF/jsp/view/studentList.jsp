@@ -40,7 +40,7 @@
 				
 				<tr>
 					<td>${student.id }</td>
-					<td>${student.firsName }</td>
+					<td>${student.firstName }</td>
 					<td>${student.lastName }</td>
 					<td>${student.country }</td>
 					<td>${student.phone }</td>

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.badar.muneer.dto.StudentForm;
+import com.badar.muneer.model.Course;
 import com.badar.muneer.model.Student;
 import com.badar.muneer.service.CourseService;
 import com.badar.muneer.service.StudentService;
@@ -34,7 +35,7 @@ public class StudentController
 	private CourseService courseService;
 	
 	@GetMapping("/home")
-	public ModelAndView studentHome(HttpServletRequest request)
+	public ModelAndView studentHome(HttpServletRequest request, Model model)
 	{
 		HttpSession session = request.getSession();
 		if(session.getAttribute("student") == null)
@@ -42,6 +43,7 @@ public class StudentController
 			return new ModelAndView(new RedirectView("/login", true));
 		}
 		
+		model.addAttribute("courses", courseService.getAllAvailable());
 		return new ModelAndView("studentHome");
 	}
 	
@@ -135,6 +137,36 @@ public class StudentController
 		return new ModelAndView(new RedirectView("/students/", true));
 	}
 	
+	
+	@GetMapping("register-course/{id}")
+	public ModelAndView registerForCourse(@PathVariable("id") long id, HttpSession session, Model model)
+	{
+		if(session.getAttribute("student") == null)
+			return new ModelAndView(new RedirectView("/login", true));
+		
+		Student student = (Student) session.getAttribute("student");
+		
+		int totalCreditHours = 0;
+		
+		for(Course c : student.getCourses())
+		{
+			totalCreditHours = totalCreditHours + c.getCreditHours();
+			
+		}
+		
+		if(totalCreditHours >= 9)
+		{
+			model.addAttribute("registrationMsg", "Your total credit hours are completed.!");
+			return new ModelAndView(new RedirectView("/home", true));
+		}
+		student.getCourses().add(courseService.getCourse(id));
+		
+		studentService.update(student);
+		
+		model.addAttribute("registrationMsg", "Registered in course successfull!");
+		
+		return new ModelAndView(new RedirectView("/home", true));
+	}
 	
 	public StudentService getStudentService() {
 		return studentService;

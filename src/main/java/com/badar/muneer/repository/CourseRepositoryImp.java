@@ -60,6 +60,15 @@ public class CourseRepositoryImp implements CourseRepository {
 
 		return createQuery.getResultList();
 	}
+	
+	@Override
+	public Course getCourse(long id) 
+	{
+		Session session = sessionFactory.getCurrentSession();
+		Course course = session.get(Course.class, id);
+		return course;
+		
+	}
 
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;

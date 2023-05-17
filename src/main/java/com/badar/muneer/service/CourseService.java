@@ -9,5 +9,7 @@ public interface CourseService
 	List<Course> getAll();
 	
 	List<Course> getAllAvailable();
+	
+	Course getCourse(long id);
 
 }

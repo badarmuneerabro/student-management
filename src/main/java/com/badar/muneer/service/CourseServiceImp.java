@@ -37,6 +37,13 @@ public class CourseServiceImp implements CourseService {
 		}
 		return allAvailable;
 	}
+	
+	@Override
+	@Transactional
+	public Course getCourse(long id) 
+	{
+		return courseRepository.getCourse(id);
+	}
 	public CourseRepository getCourseRepository() {
 		return courseRepository;
 	}
