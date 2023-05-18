@@ -17,3 +17,5 @@ You must ensure the maven dependencies are installed, and must have required sof
 * MySQL
 * Tomcat 9
 * Eclipse.
+
+And make sure to change database.properites file according to your database credentials.
