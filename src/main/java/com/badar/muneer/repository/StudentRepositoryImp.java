@@ -64,6 +64,7 @@ public class StudentRepositoryImp implements StudentRespository
 		oldStudent.setLastName(student.getLastName());
 		oldStudent.setPhone(student.getPhone());
 		oldStudent.setRollNo(student.getRollNo());
+		oldStudent.setCourses(student.getCourses());
 		
 		session.update(oldStudent);
 		

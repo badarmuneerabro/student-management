@@ -1,11 +1,14 @@
 package com.badar.muneer.controllers;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,7 +46,11 @@ public class StudentController
 			return new ModelAndView(new RedirectView("/login", true));
 		}
 		
-		model.addAttribute("courses", courseService.getAllAvailable());
+		Student student = (Student) session.getAttribute("student");
+		List<Course> list = courseService.getAllAvailable();
+		Set<Course> registeredCourses = student.getCourses();
+		List<Course> filteredCourses = filterForStudent(list, registeredCourses);
+		model.addAttribute("courses", filteredCourses);
 		return new ModelAndView("studentHome");
 	}
 	
@@ -112,17 +119,10 @@ public class StudentController
 		st.setLastName(student.getLastName());
 		st.setPhone(student.getPhone());
 		st.setRollNo(student.getRollNo());
+		st.setEmail(student.getEmail());
+		st.setPassword(student.getPassword());
 		
-		if(student.getId() == null)
-		{
-			studentService.saveStudent(st);
-		}
-		
-		else
-		{
-			st.setId(student.getId());
-			studentService.update(st);
-		}
+		studentService.saveStudent(st);
 		return new ModelAndView(new RedirectView("/students/", true));
 	}
 	
@@ -131,13 +131,46 @@ public class StudentController
 	{
 		
 		Student student = studentService.getStudent(id);
+		Set<Course> courses = student.getCourses();
+		student.setCourses(null);
+		// iterate over courses, where student is registered.
+		Iterator<Course> iterator = courses.iterator();
+		boolean removed = false;
+		while(iterator.hasNext())
+		{
+			Course course = iterator.next();
+			Set<Student> students = course.getStudents();
+			Iterator<Student> studentIterator = students.iterator();
+			while(studentIterator.hasNext())
+			{
+				Student s = studentIterator.next();
+				if(s.getId() == student.getId())
+				{
+					studentIterator.remove();
+					courseService.updatCourse(course);
+					
+					removed = true;
+					System.out.println("Removed from course");
+					break;
+				}
+				
+			}
+		}
 		
 		studentService.delete(student);
 		
 		return new ModelAndView(new RedirectView("/students/", true));
 	}
 	
-	
+	@GetMapping("student-details/{id}")
+	public ModelAndView studentDetails(@PathVariable("id") long id, Model model, HttpSession session)
+	{
+		if(session.getAttribute("admin") == null)
+			return new ModelAndView(new RedirectView("/login", true));
+		model.addAttribute("student", studentService.getStudent(id));
+		
+		return new ModelAndView("studentDetails");
+	}
 	@GetMapping("register-course/{id}")
 	public ModelAndView registerForCourse(@PathVariable("id") long id, HttpSession session, Model model)
 	{
@@ -156,18 +189,39 @@ public class StudentController
 		
 		if(totalCreditHours >= 9)
 		{
-			model.addAttribute("registrationMsg", "Your total credit hours are completed.!");
-			return new ModelAndView(new RedirectView("/home", true));
+			session.setAttribute("registrationMsg", "Your total credit hours are completed.!");
+			return new ModelAndView(new RedirectView("/students/home", true));
 		}
-		student.getCourses().add(courseService.getCourse(id));
+		Course course = courseService.getCourse(id);
+		student.getCourses().add(course);
 		
 		studentService.update(student);
+		course.getStudents().add(student);
+		courseService.updatCourse(course);
 		
-		model.addAttribute("registrationMsg", "Registered in course successfull!");
+		session.setAttribute("registrationMsg", "Registered in course successfull!");
 		
-		return new ModelAndView(new RedirectView("/home", true));
+		return new ModelAndView(new RedirectView("/students/home", true));
 	}
 	
+	private List<Course> filterForStudent(List<Course> courses, Set<Course> coursesOfStudent)
+	{
+		Iterator<Course> iterator = coursesOfStudent.iterator();
+		while(iterator.hasNext())
+		{
+			Course c = iterator.next();
+			for(int j = 0; j < courses.size(); j++)
+			{
+				if(courses.get(j).getId() == c.getId())
+				{
+					courses.remove(j);
+					break;
+				}
+			}
+		}
+		
+		return courses;
+	}
 	public StudentService getStudentService() {
 		return studentService;
 	}

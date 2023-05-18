@@ -69,6 +69,17 @@ public class CourseRepositoryImp implements CourseRepository {
 		return course;
 		
 	}
+	
+	@Override
+	public Course updateCourse(Course course) 
+	{
+		Session session = sessionFactory.getCurrentSession();
+		session.update(course);
+		
+		return course;
+		
+		
+	}
 
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;

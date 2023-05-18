@@ -49,6 +49,17 @@
 			<form:input  path="rollNo" cssClass="form-control" />
 			<form:errors cssClass="error" path="rollNo" />
 		</div>
+		<div class="mb-3">
+			<form:label path="email" cssClass="form-label" >Email: </form:label>
+			<form:input  path="email" cssClass="form-control" />
+			<form:errors cssClass="error" path="email" />
+		</div>
+		
+		<div class="mb-3">
+			<form:label path="password" cssClass="form-label" >Password: </form:label>
+			<form:password  path="password" cssClass="form-control" />
+			<form:errors cssClass="error" path="password" />
+		</div>
 		<i class="bi bi-plus-circle-fill"></i><input class="btn btn-outline-primary px-4 py-2" type="submit" value="Add" name="Add">
 	</form:form>
 	</div> 

@@ -30,6 +30,11 @@ public class StudentForm
 	
 	private RollNo rollNo;
 	
+	@NotBlank(message = "*Email is required")
+	private String email;
+	@NotBlank(message = "*Password is required")
+	private String password;
+	
 	private Set<Course> courses = new HashSet<>();
 	
 	
@@ -68,6 +73,18 @@ public class StudentForm
 	}
 	public void setRollNo(RollNo rollNo) {
 		this.rollNo = rollNo;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public Set<Course> getCourses() {
 		return courses;

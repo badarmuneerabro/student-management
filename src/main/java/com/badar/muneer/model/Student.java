@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -97,7 +98,7 @@ public class Student
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	@ManyToMany(mappedBy = "students", cascade = {CascadeType.PERSIST})
+	@ManyToMany(mappedBy = "students", cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
 	public Set<Course> getCourses() {
 		return courses;
 	}
@@ -110,5 +111,13 @@ public class Student
 				+ ", country=" + country + ", phone=" + phone + "]";
 	}
 	
+	@Override
+	public boolean equals(Object obj) 
+	{
+		Student s = (Student) obj;
+		if(s.getId() == this.getId())
+			return true;
+		return false;
+	}
 	
 }

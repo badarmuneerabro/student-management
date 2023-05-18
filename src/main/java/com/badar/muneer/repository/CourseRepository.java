@@ -11,4 +11,6 @@ public interface CourseRepository
 	List<Course> getAllAvailable();
 	
 	Course getCourse(long id);
+	
+	Course updateCourse(Course course);
 }

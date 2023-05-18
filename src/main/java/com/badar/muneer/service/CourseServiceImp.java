@@ -44,6 +44,13 @@ public class CourseServiceImp implements CourseService {
 	{
 		return courseRepository.getCourse(id);
 	}
+	
+	@Transactional
+	@Override
+	public Course updatCourse(Course course) 
+	{
+		return courseRepository.updateCourse(course);
+	}
 	public CourseRepository getCourseRepository() {
 		return courseRepository;
 	}

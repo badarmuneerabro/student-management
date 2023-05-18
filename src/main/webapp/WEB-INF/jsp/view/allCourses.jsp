@@ -2,20 +2,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Student Management | Home</title>
+<title>Student Management | All courses</title>
 </head>
 <body>
+	<%@include file="/WEB-INF/jsp/student-nav.jspf" %>
+	<div class="container text-center my-3">
+		<h1>All Courses</h1>
+	</div>
+	
 
-	<%@include file="/WEB-INF/jsp/student-nav.jspf"%>
-	<h1>Hello, Welcome ${student.firstName }</h1>
-	<c:if test="${registrationMsg != null }">
-		<div class="container text-center">
-
-			<div class="alert alert-primary" role="alert">${registrationMsg }!</div>
-			<c:remove var="registrationMsg"/>
-
-		</div>
-	</c:if>
 	<div class="d-flex m-4 container-fluid">
 
 		<c:forEach items="${courses }" var="c">
@@ -29,7 +24,8 @@
 					<p class="card-text">This course is of ${c.creditHours } Credit
 						hours</p>
 					<div class="container text-center">
-						<a href="<c:url value="register-course/${c.id }" />" class="btn btn-primary">Register</a>	
+						<a href="<c:url value="register-course/${c.id }" />"
+							class="btn btn-primary">Register</a>
 					</div>
 				</div>
 			</div>

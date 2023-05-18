@@ -39,7 +39,7 @@
 			<c:forEach var="student" items="${students }">
 				
 				<tr>
-					<td>${student.id }</td>
+					<td><a href="<c:url value="student-details/${student.id}" /> ">${student.id }</a></td>
 					<td>${student.firstName }</td>
 					<td>${student.lastName }</td>
 					<td>${student.country }</td>

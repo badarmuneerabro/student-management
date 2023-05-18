@@ -12,4 +12,5 @@ public interface CourseService
 	
 	Course getCourse(long id);
 
+	Course updatCourse(Course course);
 }
